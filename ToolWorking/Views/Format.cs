@@ -536,7 +536,7 @@ namespace ToolWorking.Views
                             var arrLine = line.Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
                             result += CUtils.PadRightByByte(arrLine[0].TrimEnd('<'), maxEquals);
                             result += "<= ";
-                            result += arrLine[1];
+                            result += arrLine[1].Trim();
                             result += Environment.NewLine;
                         }
                         else if (line.Contains(">="))
@@ -544,7 +544,7 @@ namespace ToolWorking.Views
                             var arrLine = line.Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
                             result += CUtils.PadRightByByte(arrLine[0].TrimEnd('>'), maxEquals);
                             result += ">= ";
-                            result += arrLine[1];
+                            result += arrLine[1].Trim();
                             result += Environment.NewLine;
                         }
                         else if (line.Contains("="))
@@ -552,15 +552,16 @@ namespace ToolWorking.Views
                             var arrLine = line.Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
                             result += CUtils.PadRightByByte(arrLine[0].TrimEnd(), maxEquals);
                             result += " = ";
-                            result += arrLine[1];
+                            result += arrLine[1].Trim();
                             result += Environment.NewLine;
                         }
-                        else if (line.Contains("--"))
+                        else if (line.Contains("--") && !line.Contains("/*--"))
                         {
                             var arrLine = line.Split('-', (char)StringSplitOptions.RemoveEmptyEntries);
                             result += CUtils.PadRightByByte(arrLine[0].TrimEnd(), maxComment);
                             result += " --";
                             result += arrLine[2];
+                            if (arrLine.Length > 3) result += "-" + arrLine[3];
                             result += Environment.NewLine;
                         }
                         else

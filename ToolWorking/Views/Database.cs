@@ -770,7 +770,7 @@ namespace ToolWorking.Views
                             int.TryParse(arrRow[idxDigit].Trim(), out int rangeP);
                             int.TryParse(arrRow[idxPrecision].Trim(), out int rangeS);
                             bool isNotNull = string.IsNullOrEmpty(arrRow[idxNotNull]);
-                            primaryKey += !string.IsNullOrEmpty(arrRow[idxPK]) ? arrRow[idxColumnName].Trim() + "," : "";
+                            primaryKey += !string.IsNullOrEmpty(arrRow[idxPK]) ? "[" + arrRow[idxColumnName].Trim() + "] ," : "";
                             scriptTable = CUtils.TemplateColumnScript(columnName, columnType, rangeP, rangeS, isNotNull);
 
                             lstScriptTable.Add(scriptTable);
@@ -1545,7 +1545,7 @@ namespace ToolWorking.Views
                 {
                     if (value.ToUpper().Equals(CONST.STRING_NULL))
                     {
-                        value = "null, ";
+                        value = "NULL, ";
                     }
                     else if (index.HasValue)
                     {
@@ -1564,7 +1564,7 @@ namespace ToolWorking.Views
                         }
                         else if (value.Contains("|"))
                         {
-                            value += "|''|null";
+                            value += "|''|NULL";
                             string[] arrValue = value.Split('|');
                             value = arrValue[rnd.Next(arrValue.Length)];
                         }
@@ -1589,7 +1589,7 @@ namespace ToolWorking.Views
                                 .AddSeconds(rnd.Next(0, 60)).ToString("yyyyMMddHHmmss");
                         }
                     }
-                    if (value.ToUpper().Equals("YYYYMMDD") || value.ToUpper().Equals("YYYY/MM/DD"))
+                    else if (value.ToUpper().Equals("YYYYMMDD") || value.ToUpper().Equals("YYYY/MM/DD"))
                     {
                         DateTime start = new DateTime(1990, 1, 1);
                         if (value.ToUpper().Equals("YYYY/MM/DD"))
@@ -1618,7 +1618,7 @@ namespace ToolWorking.Views
                 {
                     if (value.Equals(CONST.STRING_NULL))
                     {
-                        result += "null, ";
+                        result += "NULL, ";
                     }
                     else if (index.HasValue)
                     {
@@ -1633,7 +1633,7 @@ namespace ToolWorking.Views
                 {
                     if (value.Equals(CONST.STRING_NULL))
                     {
-                        result += "null, ";
+                        result += "NULL, ";
                     }
                     else if (index.HasValue)
                     {
@@ -1661,7 +1661,7 @@ namespace ToolWorking.Views
                 {
                     if (value.Equals(CONST.STRING_NULL))
                     {
-                        result += "null, ";
+                        result += "NULL, ";
                     }
                     else if (index.HasValue)
                     {
@@ -1692,7 +1692,7 @@ namespace ToolWorking.Views
                 {
                     if (value.Equals(CONST.STRING_NULL))
                     {
-                        result += "null, ";
+                        result += "NULL, ";
                     }
                     else if (index.HasValue)
                     {
