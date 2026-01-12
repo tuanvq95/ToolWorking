@@ -1065,11 +1065,12 @@ namespace ToolWorking.Views
                         {
                             string row = getValue(i);
                             if (string.IsNullOrEmpty(row)) return;
-                            value += $"\r\n({row}),";
+                            if (i > 0) value += "\r\n";
+                            value += $",({row})";
 
                             if ((i + 1) % 100 == 0 || i == numRow)
                             {
-                                string valInsert = string.Format(tempInsert, nameTable, value.TrimEnd(',')) + "\r\n";
+                                string valInsert = string.Format(tempInsert, nameTable, "\r\n " + value.TrimStart(',')) + "\r\n";
                                 txtResultQuery.Text += valInsert;
 
                                 if (cbDatabase.SelectedIndex > 0) errMessage = DBUtils.ExecuteScript(valInsert);
@@ -1545,7 +1546,8 @@ namespace ToolWorking.Views
                 {
                     if (value.ToUpper().Equals(CONST.STRING_NULL))
                     {
-                        value = "NULL, ";
+                        result += "NULL, ";
+                        continue;
                     }
                     else if (index.HasValue)
                     {
@@ -1561,12 +1563,6 @@ namespace ToolWorking.Views
                             {
                                 value = value.Replace("X", string.Empty) + CUtils.GenerateRandomValue(ref _type, numInput);
                             }
-                        }
-                        else if (value.Contains("|"))
-                        {
-                            value += "|''|NULL";
-                            string[] arrValue = value.Split('|');
-                            value = arrValue[rnd.Next(arrValue.Length)];
                         }
                         else if (value.ToUpper().Equals("YYYYMMDD") || value.ToUpper().Equals("YYYY/MM/DD"))
                         {
@@ -1609,10 +1605,7 @@ namespace ToolWorking.Views
                             .AddMinutes(rnd.Next(0, 60))
                             .AddSeconds(rnd.Next(0, 60)).ToString("yyyyMMddHHmmss");
                     }
-                    else
-                    {
-                        result += $"'{value}', ";
-                    }
+                    result += $"'{value}', ";
                 }
                 else if (type.Equals(CONST.C_TYPE_DOUBLE))
                 {
