@@ -1564,6 +1564,11 @@ namespace ToolWorking.Views
                                 value = value.Replace("X", string.Empty) + CUtils.GenerateRandomValue(ref _type, numInput);
                             }
                         }
+                        else if (value.Contains("|"))
+                        {
+                            string[] arrValue = value.Split('|');
+                            value = arrValue[rnd.Next(arrValue.Length)];
+                        }
                         else if (value.ToUpper().Equals("YYYYMMDD") || value.ToUpper().Equals("YYYY/MM/DD"))
                         {
                             DateTime start = new DateTime(1990, 1, 1);
