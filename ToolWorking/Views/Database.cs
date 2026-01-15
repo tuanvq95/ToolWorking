@@ -764,8 +764,7 @@ namespace ToolWorking.Views
                                 continue;
                             }
 
-                            columnName = columnName == string.Empty ? string.Empty : ",";
-                            columnName += $"[{arrRow[idxColumnName].Trim()}]";
+                            columnName = $"[{arrRow[idxColumnName].Trim()}]";
                             columnType = CUtils.ConvertTypeJPToEN(arrRow[idxDataType].Trim().ToLower());
                             int.TryParse(arrRow[idxDigit].Trim(), out int rangeP);
                             int.TryParse(arrRow[idxPrecision].Trim(), out int rangeS);
@@ -1149,7 +1148,6 @@ namespace ToolWorking.Views
                         maxVar = maxVar + 2;
                         maxType = maxType + 2;
 
-
                         foreach (string row in lstScriptTable)
                         {
                             string[] arrRow = CUtils.SplitBySpaceIgnoreBracket(row);
@@ -1162,7 +1160,7 @@ namespace ToolWorking.Views
                             {
                                 bodyScriptTable += arrRow[1].TrimEnd().PadRight(maxType + 1).Replace(",", ", ");
                             }
-                            if (arrRow[2].Equals("NULL"))
+                            if (arrRow[2].TrimEnd(',').Equals("NULL"))
                             {
                                 bodyScriptTable += "    " + arrRow[2];
                             }
@@ -1555,14 +1553,12 @@ namespace ToolWorking.Views
                         if (value.Contains("X"))
                         {
                             int numInput = value.Count(c => c == 'X');
-                            if (int.TryParse(value.Replace("X", string.Empty), out _))
-                            {
-                                value = value.Replace("X", string.Empty) + CUtils.GenerateRandomNumber(numInput);
-                            }
-                            else
-                            {
-                                value = value.Replace("X", string.Empty) + CUtils.GenerateRandomValue(ref _type, numInput);
-                            }
+                            value = value.Replace("X", string.Empty) + CUtils.GenerateRandomValue(ref _type, numInput);
+                        }
+                        else if (value.Contains("Y"))
+                        {
+                            int numInput = value.Count(c => c == 'Y');
+                            value = value.Replace("Y", string.Empty) + CUtils.GenerateRandomNumber(numInput);
                         }
                         else if (value.Contains("|"))
                         {

@@ -539,7 +539,7 @@ namespace ToolWorking.Utils
                 typeWithRange += $"({rangeP},{rangeS})";
             }
 
-            return $"    {columnName} {typeWithRange.ToLower()} {(isNotNull ? "NOT NULL" : "NULL")}";
+            return $"    {columnName} {typeWithRange.ToLower()} {(isNotNull ? "NOT NULL," : "NULL,")}";
         }
         #endregion
     }
