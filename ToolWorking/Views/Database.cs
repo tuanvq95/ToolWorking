@@ -1550,12 +1550,12 @@ namespace ToolWorking.Views
                     else if (index.HasValue)
                     {
                         string _type = CONST.STRING_TEXT2;
-                        if (value.Contains("X"))
+                        if (value.Contains("XXX") && value.Count(c => c == 'X') >= 3)
                         {
                             int numInput = value.Count(c => c == 'X');
                             value = value.Replace("X", string.Empty) + CUtils.GenerateRandomValue(ref _type, numInput);
                         }
-                        else if (value.Contains("Y"))
+                        else if (value.Contains("YYY") && value.Count(c => c == 'Y') >= 3)
                         {
                             int numInput = value.Count(c => c == 'Y');
                             value = value.Replace("Y", string.Empty) + CUtils.GenerateRandomNumber(numInput);
