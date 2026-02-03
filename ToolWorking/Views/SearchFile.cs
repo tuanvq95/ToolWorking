@@ -246,6 +246,14 @@ namespace ToolWorking.Views
                     }
                     else if (cbProcessOpen.SelectedIndex == 1)
                     {
+                        Process.Start(@"C:\Users\tuan-vq\AppData\Local\Kingsoft\WPS Office\ksolaunch.exe", $@"""{pathFile}""");
+                    }
+                    else if (cbProcessOpen.SelectedIndex == 2)
+                    {
+                        Process.Start(@"C:\Program Files\Microsoft Office\Office16\EXCEL.EXE", $@"""{pathFile}""");
+                    }
+                    else if (cbProcessOpen.SelectedIndex == 3)
+                    {
                         pathFile = pathFile.Substring(0, pathFile.LastIndexOf("\\"));
                         Process.Start("explorer.exe", @pathFile);
                     }
