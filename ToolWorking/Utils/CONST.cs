@@ -80,11 +80,12 @@ namespace ToolWorking.Utils
         #endregion
 
         #region String title
-        public static string TITLE_FILE_FOLDER = "Get File Info from Folder";
-        public static string TITLE_SEARCH_FILE = "Search for Files in a Folder";
-        public static string TITLE_CREATE_FILE = "Create File Based on User Settings";
-        public static string TITLE_DATABASE = "Database Operations";
-        public static string TITLE_FORMAT = "Source Structure Format";
+        public static string TITLE_FILE_FOLDER = "Folder File Scanner";
+        public static string TITLE_SEARCH_FILE = "File Search";
+        public static string TITLE_CREATE_FILE = "File Generator";
+        public static string TITLE_DATABASE = "Database Manager";
+        public static string TITLE_JSON = "JSON Editor";
+        public static string TITLE_FORMAT = "Code Formatter";
         #endregion
 
         #region Message 
