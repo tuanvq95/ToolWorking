@@ -36,6 +36,7 @@ namespace ToolWorking.Views
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelTop = new System.Windows.Forms.Panel();
             this.panelQueryInput = new System.Windows.Forms.Panel();
+            this.chkIsMySQL = new System.Windows.Forms.CheckBox();
             this.rbCreateScript = new System.Windows.Forms.RadioButton();
             this.rbInputTable = new System.Windows.Forms.RadioButton();
             this.rbInputExcel = new System.Windows.Forms.RadioButton();
@@ -134,6 +135,7 @@ namespace ToolWorking.Views
             // 
             // panelQueryInput
             // 
+            this.panelQueryInput.Controls.Add(this.chkIsMySQL);
             this.panelQueryInput.Controls.Add(this.rbCreateScript);
             this.panelQueryInput.Controls.Add(this.rbInputTable);
             this.panelQueryInput.Controls.Add(this.rbInputExcel);
@@ -142,6 +144,17 @@ namespace ToolWorking.Views
             this.panelQueryInput.Size = new System.Drawing.Size(411, 29);
             this.panelQueryInput.TabIndex = 25;
             this.panelQueryInput.Visible = false;
+            // 
+            // chkIsMySQL
+            // 
+            this.chkIsMySQL.AutoSize = true;
+            this.chkIsMySQL.Location = new System.Drawing.Point(324, 5);
+            this.chkIsMySQL.Name = "chkIsMySQL";
+            this.chkIsMySQL.Size = new System.Drawing.Size(61, 17);
+            this.chkIsMySQL.TabIndex = 26;
+            this.chkIsMySQL.Text = "MySQL";
+            this.chkIsMySQL.UseVisualStyleBackColor = true;
+            this.chkIsMySQL.CheckedChanged += new System.EventHandler(this.chkIsMySQL_CheckedChanged);
             // 
             // rbCreateScript
             // 
@@ -707,6 +720,7 @@ namespace ToolWorking.Views
             this.gridInputValue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.gridInputValue.Size = new System.Drawing.Size(430, 138);
             this.gridInputValue.TabIndex = 11;
+            this.gridInputValue.CellToolTipTextNeeded += new System.Windows.Forms.DataGridViewCellToolTipTextNeededEventHandler(this.gridInputValue_CellToolTipTextNeeded);
             this.gridInputValue.CurrentCellDirtyStateChanged += new System.EventHandler(this.gridInputValue_CurrentCellDirtyStateChanged);
             // 
             // no
@@ -878,5 +892,6 @@ namespace ToolWorking.Views
         private System.Windows.Forms.DataGridViewTextBoxColumn value;
         private System.Windows.Forms.DataGridViewTextBoxColumn Range;
         private System.Windows.Forms.DataGridViewTextBoxColumn ExcludeChars;
+        private System.Windows.Forms.CheckBox chkIsMySQL;
     }
 }

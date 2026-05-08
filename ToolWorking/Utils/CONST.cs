@@ -63,6 +63,7 @@ namespace ToolWorking.Utils
         public const string SQL_TYPE_DECIMAL = "decimal";
         public const string SQL_TYPE_BIT = "bit";
         public const string SQL_TYPE_DECLARE = "DECLARE";
+        public const string SQL_TYPE_JSON = "JSON";
         #endregion
 
         #region String C Type 
@@ -77,6 +78,7 @@ namespace ToolWorking.Utils
         public const string C_TYPE_NUMERIC = "numeric";
         public const string C_TYPE_DECIMAL = "decimal";
         public const string C_TYPE_DOUBLE = "double";
+        public const string C_TYPE_JSON = "JSON";
         #endregion
 
         #region String title

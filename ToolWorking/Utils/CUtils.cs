@@ -119,6 +119,8 @@ namespace ToolWorking.Utils
                     return CONST.C_TYPE_NUMERIC;
                 case CONST.SQL_TYPE_DECIMAL:
                     return CONST.C_TYPE_DECIMAL;
+                case CONST.SQL_TYPE_JSON:
+                    return CONST.C_TYPE_JSON;
                 default:
                     return CONST.C_TYPE_INT;
             }

@@ -13,6 +13,7 @@ namespace ToolWorking.Views
 {
     public partial class Database : Form
     {
+        bool isMySQL;
         // Database connection
         private string database;
         // Default database
@@ -24,7 +25,8 @@ namespace ToolWorking.Views
         // Primary Key
         private string primaryKey;
         // Template insert
-        private string tempInsert;
+        private string tempInsertSQLServer;
+        private string tempInsertMySQL;
         // Path folder
         private string pathFolderDatabase;
         // Tree node
@@ -52,7 +54,8 @@ namespace ToolWorking.Views
 
             dicResult = new Dictionary<string, string>();
             defaultDatabase = "---None---";
-            tempInsert = "INSERT INTO [dbo].[{0}] VALUES {1};";
+            tempInsertSQLServer = "INSERT INTO [dbo].[{0}] VALUES {1};";
+            tempInsertMySQL = "INSERT INTO {0} VALUES {1};";
         }
 
         #region Event
@@ -328,6 +331,11 @@ namespace ToolWorking.Views
             progressBarQuery.Value = 0;
         }
 
+        private void chkIsMySQL_CheckedChanged(object sender, EventArgs e)
+        {
+            isMySQL = chkIsMySQL.Checked;
+        }
+
         /// <summary>
         /// Event select add text path folder
         /// </summary>
@@ -577,7 +585,7 @@ namespace ToolWorking.Views
                             string defaultValue = CONST.STRING_NULL;
                             if (type.Contains(CONST.C_TYPE_DATE_TIME) || type.Equals(CONST.C_TYPE_TIME))
                             {
-                                defaultValue = "SYSDATETIME()";
+                                defaultValue = isMySQL ? "NOW()" : "SYSDATETIME()";
                             }
                             else if (type.Equals(CONST.C_TYPE_BIT))
                             {
@@ -599,6 +607,10 @@ namespace ToolWorking.Views
                             {
                                 type = arrItem[1].Trim() + "," + arrItem[2].Trim();
                                 defaultValue = "1.0";
+                            }
+                            else if (type.ToUpper().Equals(CONST.C_TYPE_JSON))
+                            {
+                                defaultValue = "[]";
                             }
                             else if (item.ToUpper().Contains(CONST.STRING_NOT_NULL))
                             {
@@ -835,11 +847,15 @@ namespace ToolWorking.Views
                                     }
                                     else if (type.Contains(CONST.C_TYPE_DATE_TIME) || type.Contains(CONST.C_TYPE_TIME))
                                     {
-                                        result += "SYSDATETIME(), ";
+                                        result += isMySQL ? "NOW(), " : "SYSDATETIME(), ";
                                     }
                                     else if (type.Contains(CONST.C_TYPE_TIME_STAMP))
                                     {
                                         result += "NULL, ";
+                                    }
+                                    else if (type.Contains(CONST.C_TYPE_JSON))
+                                    {
+                                        result += "'[]', ";
                                     }
                                     else
                                     {
@@ -885,6 +901,29 @@ namespace ToolWorking.Views
             if (gridInputValue.IsCurrentCellDirty)
             {
                 gridInputValue.CommitEdit(DataGridViewDataErrorContexts.Commit);
+            }
+        }
+
+        /// <summary>
+        /// Event show role input
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+
+        private void gridInputValue_CellToolTipTextNeeded(object sender, DataGridViewCellToolTipTextNeededEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            string toolTipText =
+@"XXX = Random letters (e.g. 000XXX -> 000ABC)
+YYY = Random numbers (e.g. ABCYYY -> ABC123)
+A|B|C = Random value from list (e.g. -> B)";
+
+            if (gridInputValue.Columns[e.ColumnIndex].Name == "value")
+            {
+                var value = gridInputValue.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
+                e.ToolTipText = toolTipText;
             }
         }
 
@@ -987,6 +1026,7 @@ namespace ToolWorking.Views
             {
                 Cursor.Current = Cursors.WaitCursor;
                 string errMessage = string.Empty;
+
                 progressBarFolder.Value = 0;
                 progressBarQuery.Value = 0;
 
@@ -1069,7 +1109,7 @@ namespace ToolWorking.Views
 
                             if ((i + 1) % 100 == 0 || i == numRow)
                             {
-                                string valInsert = string.Format(tempInsert, nameTable, "\r\n " + value.TrimStart(',')) + "\r\n";
+                                string valInsert = string.Format(isMySQL ? tempInsertMySQL : tempInsertSQLServer, nameTable, "\r\n " + value.TrimStart(',')) + "\r\n";
                                 txtResultQuery.Text += valInsert;
 
                                 if (cbDatabase.SelectedIndex > 0) errMessage = DBUtils.ExecuteScript(valInsert);
@@ -1098,7 +1138,7 @@ namespace ToolWorking.Views
 
                         if (numRow == 0)
                         {
-                            value = string.Format(tempInsert, nameTable, $"({lstInputExcel[0]})");
+                            value = string.Format(isMySQL ? tempInsertMySQL : tempInsertSQLServer, nameTable, $"({lstInputExcel[0]})");
                             txtResultQuery.Text += value + "\r\n";
 
                             if (cbDatabase.SelectedIndex > 0) errMessage = DBUtils.ExecuteScript(value);
@@ -1119,7 +1159,7 @@ namespace ToolWorking.Views
 
                                 if ((i + 1) % 100 == 0 || i == numRow)
                                 {
-                                    string valInsert = string.Format(tempInsert, nameTable, value.TrimEnd(',')) + "\r\n";
+                                    string valInsert = string.Format(isMySQL ? tempInsertMySQL : tempInsertSQLServer, nameTable, value.TrimEnd(',')) + "\r\n";
                                     txtResultQuery.Text += valInsert;
 
                                     if (cbDatabase.SelectedIndex > 0) errMessage = DBUtils.ExecuteScript(valInsert);
@@ -1189,7 +1229,7 @@ namespace ToolWorking.Views
                         value = getValue(null);
                         if (string.IsNullOrEmpty(value)) return;
 
-                        value = string.Format(tempInsert, nameTable, $"\r\n({value.TrimEnd(',')})");
+                        value = string.Format(isMySQL ? tempInsertMySQL : tempInsertSQLServer, nameTable, $"\r\n({value.TrimEnd(',')})");
                         txtResultQuery.Text = value;
 
                         if (cbDatabase.SelectedIndex > 0) errMessage = DBUtils.ExecuteScript(value);
@@ -1549,7 +1589,7 @@ namespace ToolWorking.Views
                     }
                     else if (index.HasValue)
                     {
-                        string _type = CONST.STRING_TEXT2;
+                        string _type = CONST.STRING_TEXT1;
                         if (value.Contains("XXX") && value.Count(c => c == 'X') >= 3)
                         {
                             int numInput = value.Count(c => c == 'X');
@@ -1682,6 +1722,17 @@ namespace ToolWorking.Views
                 {
                     result += value + ", ";
                 }
+                else if (type.Equals(CONST.C_TYPE_JSON))
+                {
+                    if (value.Equals(CONST.STRING_NULL))
+                    {
+                        result += "NULL, ";
+                    }
+                    else
+                    {
+                        result += $"'{value}', ";
+                    }
+                }
                 else
                 {
                     if (value.Equals(CONST.STRING_NULL))
@@ -1764,6 +1815,10 @@ namespace ToolWorking.Views
             else if (type.Contains(CONST.C_TYPE_TIME_STAMP))
             {
                 return value != CONST.STRING_NULL;
+            }
+            else if (type.Contains(CONST.C_TYPE_JSON))
+            {
+                return !(value.StartsWith("[") && value.EndsWith("]")) && value != CONST.STRING_NULL;
             }
             else
             {
