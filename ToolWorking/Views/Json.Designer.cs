@@ -33,55 +33,43 @@ namespace ToolWorking.Views
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Json));
-            this.imageListTree = new System.Windows.Forms.ImageList(this.components);
-            this.panelCenterTreeFolder = new System.Windows.Forms.Panel();
-            this.txtResult = new System.Windows.Forms.RichTextBox();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btnCopyResult = new System.Windows.Forms.Button();
             this.btnClearResult = new System.Windows.Forms.Button();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.panelCenterPath = new System.Windows.Forms.Panel();
-            this.lblNumCount = new System.Windows.Forms.Label();
-            this.lblNumBefore = new System.Windows.Forms.Label();
-            this.lblNumAfter = new System.Windows.Forms.Label();
-            this.txtResultPathFile = new System.Windows.Forms.RichTextBox();
-            this.txtListFile = new System.Windows.Forms.RichTextBox();
+            this.panelCenter = new System.Windows.Forms.Panel();
+            this.panelCenterBot = new System.Windows.Forms.Panel();
+            this.txtResult = new System.Windows.Forms.RichTextBox();
+            this.panelCenterTop = new System.Windows.Forms.Panel();
+            this.groupInputValue = new System.Windows.Forms.GroupBox();
+            this.groupInputKey = new System.Windows.Forms.GroupBox();
+            this.txtInputKey = new System.Windows.Forms.RichTextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.btnCount = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
-            this.rbModePath = new System.Windows.Forms.RadioButton();
+            this.panelInput = new System.Windows.Forms.Panel();
             this.rbModeTree = new System.Windows.Forms.RadioButton();
+            this.rbModePath = new System.Windows.Forms.RadioButton();
+            this.rbOutput = new System.Windows.Forms.RadioButton();
+            this.rbInput = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
-            this.panelCenterTreeFolder.SuspendLayout();
-            this.panelCenterPath.SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtIndent = new System.Windows.Forms.TextBox();
+            this.gridInputValue = new System.Windows.Forms.DataGridView();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Range = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.panelCenter.SuspendLayout();
+            this.panelCenterBot.SuspendLayout();
+            this.panelCenterTop.SuspendLayout();
+            this.groupInputValue.SuspendLayout();
+            this.groupInputKey.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelTop.SuspendLayout();
+            this.panelInput.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridInputValue)).BeginInit();
             this.SuspendLayout();
-            // 
-            // imageListTree
-            // 
-            this.imageListTree.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTree.ImageStream")));
-            this.imageListTree.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageListTree.Images.SetKeyName(0, "icon-folder-2-16x16.png");
-            this.imageListTree.Images.SetKeyName(1, "icon-file-16x16.png");
-            // 
-            // panelCenterTreeFolder
-            // 
-            this.panelCenterTreeFolder.Controls.Add(this.txtResult);
-            this.panelCenterTreeFolder.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCenterTreeFolder.Location = new System.Drawing.Point(0, 68);
-            this.panelCenterTreeFolder.Name = "panelCenterTreeFolder";
-            this.panelCenterTreeFolder.Size = new System.Drawing.Size(660, 345);
-            this.panelCenterTreeFolder.TabIndex = 13;
-            // 
-            // txtResult
-            // 
-            this.txtResult.Font = new System.Drawing.Font("Century Gothic", 9F);
-            this.txtResult.Location = new System.Drawing.Point(9, 222);
-            this.txtResult.Name = "txtResult";
-            this.txtResult.ReadOnly = true;
-            this.txtResult.Size = new System.Drawing.Size(642, 111);
-            this.txtResult.TabIndex = 7;
-            this.txtResult.Text = "";
             // 
             // btnCopyResult
             // 
@@ -108,70 +96,80 @@ namespace ToolWorking.Views
             this.btnClearResult.Text = "    Clear";
             this.btnClearResult.UseVisualStyleBackColor = true;
             // 
-            // panelCenterPath
+            // panelCenter
             // 
-            this.panelCenterPath.Controls.Add(this.lblNumCount);
-            this.panelCenterPath.Controls.Add(this.lblNumBefore);
-            this.panelCenterPath.Controls.Add(this.lblNumAfter);
-            this.panelCenterPath.Controls.Add(this.txtResultPathFile);
-            this.panelCenterPath.Controls.Add(this.txtListFile);
-            this.panelCenterPath.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCenterPath.Location = new System.Drawing.Point(0, 68);
-            this.panelCenterPath.Name = "panelCenterPath";
-            this.panelCenterPath.Size = new System.Drawing.Size(660, 345);
-            this.panelCenterPath.TabIndex = 14;
+            this.panelCenter.Controls.Add(this.panelCenterBot);
+            this.panelCenter.Controls.Add(this.panelCenterTop);
+            this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCenter.Location = new System.Drawing.Point(0, 68);
+            this.panelCenter.Name = "panelCenter";
+            this.panelCenter.Size = new System.Drawing.Size(660, 345);
+            this.panelCenter.TabIndex = 14;
             // 
-            // lblNumCount
+            // panelCenterBot
             // 
-            this.lblNumCount.AutoSize = true;
-            this.lblNumCount.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblNumCount.Location = new System.Drawing.Point(467, 198);
-            this.lblNumCount.Name = "lblNumCount";
-            this.lblNumCount.Size = new System.Drawing.Size(150, 15);
-            this.lblNumCount.TabIndex = 25;
-            this.lblNumCount.Text = "Total file in folder Backup: ";
-            this.lblNumCount.Visible = false;
+            this.panelCenterBot.Controls.Add(this.txtResult);
+            this.panelCenterBot.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelCenterBot.Location = new System.Drawing.Point(0, 184);
+            this.panelCenterBot.Name = "panelCenterBot";
+            this.panelCenterBot.Size = new System.Drawing.Size(660, 161);
+            this.panelCenterBot.TabIndex = 24;
             // 
-            // lblNumBefore
+            // txtResult
             // 
-            this.lblNumBefore.AutoSize = true;
-            this.lblNumBefore.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblNumBefore.Location = new System.Drawing.Point(13, 198);
-            this.lblNumBefore.Name = "lblNumBefore";
-            this.lblNumBefore.Size = new System.Drawing.Size(148, 15);
-            this.lblNumBefore.TabIndex = 24;
-            this.lblNumBefore.Text = "Line number before input:";
-            this.lblNumBefore.Visible = false;
+            this.txtResult.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtResult.Font = new System.Drawing.Font("Century Gothic", 9F);
+            this.txtResult.Location = new System.Drawing.Point(0, 0);
+            this.txtResult.Name = "txtResult";
+            this.txtResult.ReadOnly = true;
+            this.txtResult.Size = new System.Drawing.Size(660, 161);
+            this.txtResult.TabIndex = 22;
+            this.txtResult.Text = "";
             // 
-            // lblNumAfter
+            // panelCenterTop
             // 
-            this.lblNumAfter.AutoSize = true;
-            this.lblNumAfter.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.lblNumAfter.Location = new System.Drawing.Point(217, 198);
-            this.lblNumAfter.Name = "lblNumAfter";
-            this.lblNumAfter.Size = new System.Drawing.Size(154, 15);
-            this.lblNumAfter.TabIndex = 23;
-            this.lblNumAfter.Text = "Line number after change: ";
-            this.lblNumAfter.Visible = false;
+            this.panelCenterTop.Controls.Add(this.groupInputValue);
+            this.panelCenterTop.Controls.Add(this.groupInputKey);
+            this.panelCenterTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCenterTop.Location = new System.Drawing.Point(0, 0);
+            this.panelCenterTop.Name = "panelCenterTop";
+            this.panelCenterTop.Size = new System.Drawing.Size(660, 178);
+            this.panelCenterTop.TabIndex = 23;
             // 
-            // txtResultPathFile
+            // groupInputValue
             // 
-            this.txtResultPathFile.Font = new System.Drawing.Font("Century Gothic", 9F);
-            this.txtResultPathFile.Location = new System.Drawing.Point(9, 222);
-            this.txtResultPathFile.Name = "txtResultPathFile";
-            this.txtResultPathFile.ReadOnly = true;
-            this.txtResultPathFile.Size = new System.Drawing.Size(642, 111);
-            this.txtResultPathFile.TabIndex = 22;
-            this.txtResultPathFile.Text = "";
+            this.groupInputValue.Controls.Add(this.gridInputValue);
+            this.groupInputValue.Dock = System.Windows.Forms.DockStyle.Right;
+            this.groupInputValue.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.groupInputValue.Location = new System.Drawing.Point(246, 0);
+            this.groupInputValue.Name = "groupInputValue";
+            this.groupInputValue.Size = new System.Drawing.Size(414, 178);
+            this.groupInputValue.TabIndex = 24;
+            this.groupInputValue.TabStop = false;
+            this.groupInputValue.Text = "Input Value";
             // 
-            // txtListFile
+            // groupInputKey
             // 
-            this.txtListFile.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtListFile.Location = new System.Drawing.Point(9, 4);
-            this.txtListFile.Name = "txtListFile";
-            this.txtListFile.Size = new System.Drawing.Size(642, 185);
-            this.txtListFile.TabIndex = 21;
-            this.txtListFile.Text = "";
+            this.groupInputKey.Controls.Add(this.txtInputKey);
+            this.groupInputKey.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupInputKey.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.groupInputKey.Location = new System.Drawing.Point(0, 0);
+            this.groupInputKey.Name = "groupInputKey";
+            this.groupInputKey.Size = new System.Drawing.Size(240, 178);
+            this.groupInputKey.TabIndex = 23;
+            this.groupInputKey.TabStop = false;
+            this.groupInputKey.Text = "Input Keys";
+            // 
+            // txtInputKey
+            // 
+            this.txtInputKey.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtInputKey.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInputKey.Location = new System.Drawing.Point(3, 19);
+            this.txtInputKey.Name = "txtInputKey";
+            this.txtInputKey.Size = new System.Drawing.Size(234, 156);
+            this.txtInputKey.TabIndex = 22;
+            this.txtInputKey.Text = "";
+            this.txtInputKey.TextChanged += new System.EventHandler(this.txtInputKey_TextChanged);
             // 
             // panelBottom
             // 
@@ -199,8 +197,11 @@ namespace ToolWorking.Views
             // 
             // panelTop
             // 
-            this.panelTop.Controls.Add(this.rbModePath);
-            this.panelTop.Controls.Add(this.rbModeTree);
+            this.panelTop.Controls.Add(this.txtIndent);
+            this.panelTop.Controls.Add(this.label1);
+            this.panelTop.Controls.Add(this.panelInput);
+            this.panelTop.Controls.Add(this.rbOutput);
+            this.panelTop.Controls.Add(this.rbInput);
             this.panelTop.Controls.Add(this.label4);
             this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelTop.Location = new System.Drawing.Point(0, 0);
@@ -208,30 +209,66 @@ namespace ToolWorking.Views
             this.panelTop.Size = new System.Drawing.Size(660, 68);
             this.panelTop.TabIndex = 12;
             // 
-            // rbModePath
+            // panelInput
             // 
-            this.rbModePath.AutoSize = true;
-            this.rbModePath.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.rbModePath.Location = new System.Drawing.Point(122, 8);
-            this.rbModePath.Name = "rbModePath";
-            this.rbModePath.Size = new System.Drawing.Size(107, 21);
-            this.rbModePath.TabIndex = 15;
-            this.rbModePath.TabStop = true;
-            this.rbModePath.Text = "JSON Object";
-            this.rbModePath.UseVisualStyleBackColor = true;
+            this.panelInput.Controls.Add(this.rbModeTree);
+            this.panelInput.Controls.Add(this.rbModePath);
+            this.panelInput.Location = new System.Drawing.Point(213, 0);
+            this.panelInput.Name = "panelInput";
+            this.panelInput.Size = new System.Drawing.Size(191, 29);
+            this.panelInput.TabIndex = 16;
             // 
             // rbModeTree
             // 
             this.rbModeTree.AutoSize = true;
             this.rbModeTree.Checked = true;
             this.rbModeTree.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.rbModeTree.Location = new System.Drawing.Point(51, 8);
+            this.rbModeTree.Location = new System.Drawing.Point(0, 8);
             this.rbModeTree.Name = "rbModeTree";
-            this.rbModeTree.Size = new System.Drawing.Size(71, 21);
+            this.rbModeTree.Size = new System.Drawing.Size(53, 21);
             this.rbModeTree.TabIndex = 14;
             this.rbModeTree.TabStop = true;
-            this.rbModeTree.Text = "Key List";
+            this.rbModeTree.Text = "Keys";
             this.rbModeTree.UseVisualStyleBackColor = true;
+            this.rbModeTree.CheckedChanged += new System.EventHandler(this.rbModeTree_CheckedChanged);
+            // 
+            // rbModePath
+            // 
+            this.rbModePath.AutoSize = true;
+            this.rbModePath.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.rbModePath.Location = new System.Drawing.Point(55, 8);
+            this.rbModePath.Name = "rbModePath";
+            this.rbModePath.Size = new System.Drawing.Size(107, 21);
+            this.rbModePath.TabIndex = 15;
+            this.rbModePath.Text = "JSON Object";
+            this.rbModePath.UseVisualStyleBackColor = true;
+            this.rbModePath.CheckedChanged += new System.EventHandler(this.rbModePath_CheckedChanged);
+            // 
+            // rbOutput
+            // 
+            this.rbOutput.AutoSize = true;
+            this.rbOutput.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.rbOutput.Location = new System.Drawing.Point(140, 8);
+            this.rbOutput.Name = "rbOutput";
+            this.rbOutput.Size = new System.Drawing.Size(72, 21);
+            this.rbOutput.TabIndex = 2;
+            this.rbOutput.Text = "Output";
+            this.rbOutput.UseVisualStyleBackColor = true;
+            this.rbOutput.CheckedChanged += new System.EventHandler(this.rbOutput_CheckedChanged);
+            // 
+            // rbInput
+            // 
+            this.rbInput.AutoSize = true;
+            this.rbInput.Checked = true;
+            this.rbInput.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.rbInput.Location = new System.Drawing.Point(80, 8);
+            this.rbInput.Name = "rbInput";
+            this.rbInput.Size = new System.Drawing.Size(59, 21);
+            this.rbInput.TabIndex = 1;
+            this.rbInput.TabStop = true;
+            this.rbInput.Text = "Input";
+            this.rbInput.UseVisualStyleBackColor = true;
+            this.rbInput.CheckedChanged += new System.EventHandler(this.rbInput_CheckedChanged);
             // 
             // label4
             // 
@@ -243,46 +280,141 @@ namespace ToolWorking.Views
             this.label4.TabIndex = 9;
             this.label4.Text = "Mode";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.label1.Location = new System.Drawing.Point(6, 42);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 17);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Indent";
+            // 
+            // txtIndent
+            // 
+            this.txtIndent.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.txtIndent.Location = new System.Drawing.Point(80, 39);
+            this.txtIndent.Name = "txtIndent";
+            this.txtIndent.Size = new System.Drawing.Size(132, 24);
+            this.txtIndent.TabIndex = 18;
+            this.txtIndent.TextChanged += new System.EventHandler(this.txtIndent_TextChanged);
+            // 
+            // gridInputValue
+            // 
+            this.gridInputValue.AllowUserToAddRows = false;
+            this.gridInputValue.AllowUserToDeleteRows = false;
+            this.gridInputValue.AllowUserToResizeRows = false;
+            this.gridInputValue.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.gridInputValue.CausesValidation = false;
+            this.gridInputValue.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridInputValue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.gridInputValue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.gridInputValue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.name,
+            this.value,
+            this.Range});
+            this.gridInputValue.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gridInputValue.EnableHeadersVisualStyles = false;
+            this.gridInputValue.GridColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.gridInputValue.Location = new System.Drawing.Point(3, 19);
+            this.gridInputValue.Name = "gridInputValue";
+            this.gridInputValue.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.gridInputValue.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.gridInputValue.RowHeadersVisible = false;
+            this.gridInputValue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
+            this.gridInputValue.Size = new System.Drawing.Size(408, 156);
+            this.gridInputValue.TabIndex = 12;
+            // 
+            // name
+            // 
+            this.name.DataPropertyName = "key";
+            this.name.Frozen = true;
+            this.name.HeaderText = "Key";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            this.name.Width = 150;
+            // 
+            // value
+            // 
+            this.value.DataPropertyName = "value";
+            this.value.Frozen = true;
+            this.value.HeaderText = "Value";
+            this.value.Name = "value";
+            this.value.Width = 200;
+            // 
+            // Range
+            // 
+            this.Range.DataPropertyName = "range";
+            this.Range.Frozen = true;
+            this.Range.HeaderText = "Range";
+            this.Range.Name = "Range";
+            this.Range.Visible = false;
+            // 
             // Json
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(660, 445);
-            this.Controls.Add(this.panelCenterTreeFolder);
-            this.Controls.Add(this.panelCenterPath);
+            this.Controls.Add(this.panelCenter);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Json";
             this.Text = "LinkFolder";
-            this.panelCenterTreeFolder.ResumeLayout(false);
-            this.panelCenterPath.ResumeLayout(false);
-            this.panelCenterPath.PerformLayout();
+            this.panelCenter.ResumeLayout(false);
+            this.panelCenterBot.ResumeLayout(false);
+            this.panelCenterTop.ResumeLayout(false);
+            this.groupInputValue.ResumeLayout(false);
+            this.groupInputKey.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
+            this.panelInput.ResumeLayout(false);
+            this.panelInput.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridInputValue)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-        private System.Windows.Forms.ImageList imageListTree;
-        private System.Windows.Forms.Panel panelCenterTreeFolder;
-        private System.Windows.Forms.RichTextBox txtResult;
         private System.Windows.Forms.Button btnCopyResult;
         private System.Windows.Forms.Button btnClearResult;
         private System.Windows.Forms.ToolTip toolTip;
-        private System.Windows.Forms.Panel panelCenterPath;
-        private System.Windows.Forms.Label lblNumCount;
-        private System.Windows.Forms.Label lblNumBefore;
-        private System.Windows.Forms.Label lblNumAfter;
-        private System.Windows.Forms.RichTextBox txtResultPathFile;
-        private System.Windows.Forms.RichTextBox txtListFile;
+        private System.Windows.Forms.Panel panelCenter;
+        private System.Windows.Forms.RichTextBox txtResult;
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Button btnCount;
         private System.Windows.Forms.Panel panelTop;
         private System.Windows.Forms.RadioButton rbModePath;
         private System.Windows.Forms.RadioButton rbModeTree;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Panel panelCenterTop;
+        private System.Windows.Forms.Panel panelCenterBot;
+        private System.Windows.Forms.RichTextBox txtInputKey;
+        private System.Windows.Forms.GroupBox groupInputKey;
+        private System.Windows.Forms.GroupBox groupInputValue;
+        private System.Windows.Forms.RadioButton rbInput;
+        private System.Windows.Forms.RadioButton rbOutput;
+        private System.Windows.Forms.Panel panelInput;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox txtIndent;
+        private System.Windows.Forms.DataGridView gridInputValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn value;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Range;
     }
 }
