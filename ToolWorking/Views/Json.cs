@@ -112,6 +112,90 @@ namespace ToolWorking.Views
 
         #region Function
 
+        private enum NodeType { Leaf, Object, Array }
+
+        private class ParseNode
+        {
+            public string Name { get; set; }
+            public NodeType Type { get; set; }
+            public int Count { get; set; } = 1;
+            public List<ParseNode> Children { get; set; } = new List<ParseNode>();
+        }
+
+        private int ParseLines(string[] lines, int start, List<ParseNode> nodes)
+        {
+            int i = start;
+            while (i < lines.Length)
+            {
+                string line = lines[i].Trim().Replace(indentCharacter, string.Empty).Trim();
+
+                if (string.IsNullOrEmpty(line)) { i++; continue; }
+
+                if (line == "}" || line == "]") return i + 1;
+
+                if (line.Contains(":"))
+                {
+                    int colonIdx = line.IndexOf(':');
+                    string key = line.Substring(0, colonIdx).Trim();
+                    string spec = line.Substring(colonIdx + 1).Trim();
+
+                    if (spec.Contains("["))
+                    {
+                        string countText = spec.Replace("[", string.Empty).Trim();
+                        int count = int.TryParse(countText, out int c) && c > 0 ? c : 1;
+                        var arrNode = new ParseNode { Name = key, Type = NodeType.Array, Count = count };
+                        i = ParseLines(lines, i + 1, arrNode.Children);
+                        nodes.Add(arrNode);
+                        continue;
+                    }
+                    else if (spec.Contains("{"))
+                    {
+                        var objNode = new ParseNode { Name = key, Type = NodeType.Object };
+                        i = ParseLines(lines, i + 1, objNode.Children);
+                        nodes.Add(objNode);
+                        continue;
+                    }
+                    else
+                    {
+                        int count = int.TryParse(spec, out int c) ? c : 0;
+                        nodes.Add(new ParseNode { Name = key, Type = NodeType.Leaf, Count = count });
+                        i++;
+                    }
+                }
+                else
+                {
+                    nodes.Add(new ParseNode { Name = line, Type = NodeType.Leaf });
+                    i++;
+                }
+            }
+            return i;
+        }
+
+        private void FlattenNodes(List<ParseNode> nodes, string prefix, List<JsonModel> result)
+        {
+            foreach (var node in nodes)
+            {
+                string fullKey = string.IsNullOrEmpty(prefix) ? node.Name : prefix + node.Name;
+
+                switch (node.Type)
+                {
+                    case NodeType.Leaf:
+                        result.Add(new JsonModel(fullKey, string.Empty, node.Count));
+                        break;
+                    case NodeType.Object:
+                        if (node.Children.Count > 0)
+                            FlattenNodes(node.Children, fullKey + ".", result);
+                        else
+                            result.Add(new JsonModel(fullKey, string.Empty));
+                        break;
+                    case NodeType.Array:
+                        for (int i = 0; i < node.Count; i++)
+                            FlattenNodes(node.Children, fullKey + "[" + i + "].", result);
+                        break;
+                }
+            }
+        }
+
         #endregion
     }
 }
