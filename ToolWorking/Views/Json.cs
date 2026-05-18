@@ -111,7 +111,38 @@ namespace ToolWorking.Views
 
             gridInputValue.DataSource = new List<ColumnModel>();
             if (lstInputKey.Count > 0)
-                gridInputValue.DataSource = lstInputKey;
+            {
+                var expanded = new List<ColumnModel>();
+                int no = 1;
+                int idx = 0;
+                while (idx < lstInputKey.Count)
+                {
+                    var col = lstInputKey[idx];
+                    if (col.Type == "Array" && col.Range > 1)
+                    {
+                        var children = new List<ColumnModel>();
+                        idx++;
+                        while (idx < lstInputKey.Count)
+                        {
+                            var child = lstInputKey[idx];
+                            if (child.Type == "Array") break;
+                            children.Add(child);
+                            idx++;
+                        }
+                        for (int r = 0; r < col.Range; r++)
+                        {
+                            foreach (var child in children)
+                                expanded.Add(new ColumnModel(no++, col.Name + "[" + r + "]." + child.Name, child.Type, string.Empty, 1));
+                        }
+                    }
+                    else
+                    {
+                        expanded.Add(new ColumnModel(no++, col.Name, col.Type, col.Value, col.Range));
+                        idx++;
+                    }
+                }
+                gridInputValue.DataSource = expanded;
+            }
         }
 
         private void txtInputValue_TextChanged(object sender, EventArgs e)
