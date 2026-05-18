@@ -44,9 +44,6 @@ namespace ToolWorking.Views
             this.panelCenterTop = new System.Windows.Forms.Panel();
             this.groupInputValue = new System.Windows.Forms.GroupBox();
             this.gridInputValue = new System.Windows.Forms.DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Range = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupInputKey = new System.Windows.Forms.GroupBox();
             this.txtInputKey = new System.Windows.Forms.RichTextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
@@ -60,6 +57,11 @@ namespace ToolWorking.Views
             this.rbOutput = new System.Windows.Forms.RadioButton();
             this.rbInput = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
+            this.no = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.type = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Range = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelCenter.SuspendLayout();
             this.panelCenterBot.SuspendLayout();
             this.panelCenterTop.SuspendLayout();
@@ -166,7 +168,9 @@ namespace ToolWorking.Views
             this.gridInputValue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.gridInputValue.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.gridInputValue.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.no,
             this.name,
+            this.type,
             this.value,
             this.Range});
             this.gridInputValue.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -187,31 +191,6 @@ namespace ToolWorking.Views
             this.gridInputValue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.gridInputValue.Size = new System.Drawing.Size(408, 142);
             this.gridInputValue.TabIndex = 12;
-            // 
-            // name
-            // 
-            this.name.DataPropertyName = "key";
-            this.name.Frozen = true;
-            this.name.HeaderText = "Key";
-            this.name.Name = "name";
-            this.name.ReadOnly = true;
-            this.name.Width = 150;
-            // 
-            // value
-            // 
-            this.value.DataPropertyName = "value";
-            this.value.Frozen = true;
-            this.value.HeaderText = "Value";
-            this.value.Name = "value";
-            this.value.Width = 200;
-            // 
-            // Range
-            // 
-            this.Range.DataPropertyName = "range";
-            this.Range.Frozen = true;
-            this.Range.HeaderText = "Range";
-            this.Range.Name = "Range";
-            this.Range.Visible = false;
             // 
             // groupInputKey
             // 
@@ -364,6 +343,47 @@ namespace ToolWorking.Views
             this.label4.TabIndex = 9;
             this.label4.Text = "Mode";
             // 
+            // no
+            // 
+            this.no.DataPropertyName = "No";
+            this.no.Frozen = true;
+            this.no.HeaderText = "No.";
+            this.no.Name = "no";
+            this.no.ReadOnly = true;
+            // 
+            // name
+            // 
+            this.name.DataPropertyName = "Name";
+            this.name.Frozen = true;
+            this.name.HeaderText = "Name";
+            this.name.Name = "name";
+            this.name.ReadOnly = true;
+            this.name.Width = 150;
+            // 
+            // type
+            // 
+            this.type.DataPropertyName = "Type";
+            this.type.Frozen = true;
+            this.type.HeaderText = "Type";
+            this.type.Name = "type";
+            this.type.ReadOnly = true;
+            // 
+            // value
+            // 
+            this.value.DataPropertyName = "Value";
+            this.value.Frozen = true;
+            this.value.HeaderText = "Value";
+            this.value.Name = "value";
+            this.value.Width = 200;
+            // 
+            // Range
+            // 
+            this.Range.DataPropertyName = "Range";
+            this.Range.Frozen = true;
+            this.Range.HeaderText = "Range";
+            this.Range.Name = "Range";
+            this.Range.Visible = false;
+            // 
             // Json
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -413,7 +433,9 @@ namespace ToolWorking.Views
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox txtIndent;
         private System.Windows.Forms.DataGridView gridInputValue;
+        private System.Windows.Forms.DataGridViewTextBoxColumn no;
         private System.Windows.Forms.DataGridViewTextBoxColumn name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn type;
         private System.Windows.Forms.DataGridViewTextBoxColumn value;
         private System.Windows.Forms.DataGridViewTextBoxColumn Range;
     }

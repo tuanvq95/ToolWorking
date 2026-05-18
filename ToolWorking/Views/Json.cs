@@ -178,6 +178,8 @@ namespace ToolWorking.Views
                         if (int.TryParse(rangeText, out int r) && r > 0) range = r;
                     }
 
+                    result.Add(new ColumnModel(no++, key, type, string.Empty, range));
+
                     // Collect children until next Array/Object or end of input
                     var children = new List<string[]>();
                     i++;
@@ -203,7 +205,7 @@ namespace ToolWorking.Views
                     for (int idx = 0; idx < range; idx++)
                     {
                         foreach (var child in children)
-                            result.Add(new ColumnModel(no++, key + "[" + idx + "]." + child[0], child[1], string.Empty, 1));
+                            result.Add(new ColumnModel(no++, "[" + idx + "]" + child[0], child[1], string.Empty, 1));
                     }
                 }
                 else
