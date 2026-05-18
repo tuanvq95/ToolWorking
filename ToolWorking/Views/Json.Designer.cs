@@ -43,32 +43,32 @@ namespace ToolWorking.Views
             this.txtResult = new System.Windows.Forms.RichTextBox();
             this.panelCenterTop = new System.Windows.Forms.Panel();
             this.groupInputValue = new System.Windows.Forms.GroupBox();
+            this.gridInputValue = new System.Windows.Forms.DataGridView();
+            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Range = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupInputKey = new System.Windows.Forms.GroupBox();
             this.txtInputKey = new System.Windows.Forms.RichTextBox();
             this.panelBottom = new System.Windows.Forms.Panel();
             this.btnCount = new System.Windows.Forms.Button();
             this.panelTop = new System.Windows.Forms.Panel();
+            this.txtIndent = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelInput = new System.Windows.Forms.Panel();
-            this.rbModeTree = new System.Windows.Forms.RadioButton();
-            this.rbModePath = new System.Windows.Forms.RadioButton();
+            this.rbModeKeys = new System.Windows.Forms.RadioButton();
+            this.rbModeJson = new System.Windows.Forms.RadioButton();
             this.rbOutput = new System.Windows.Forms.RadioButton();
             this.rbInput = new System.Windows.Forms.RadioButton();
             this.label4 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.txtIndent = new System.Windows.Forms.TextBox();
-            this.gridInputValue = new System.Windows.Forms.DataGridView();
-            this.name = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Range = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelCenter.SuspendLayout();
             this.panelCenterBot.SuspendLayout();
             this.panelCenterTop.SuspendLayout();
             this.groupInputValue.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gridInputValue)).BeginInit();
             this.groupInputKey.SuspendLayout();
             this.panelBottom.SuspendLayout();
             this.panelTop.SuspendLayout();
             this.panelInput.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridInputValue)).BeginInit();
             this.SuspendLayout();
             // 
             // btnCopyResult
@@ -79,7 +79,7 @@ namespace ToolWorking.Views
             this.btnCopyResult.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnCopyResult.Location = new System.Drawing.Point(498, 0);
             this.btnCopyResult.Name = "btnCopyResult";
-            this.btnCopyResult.Size = new System.Drawing.Size(75, 27);
+            this.btnCopyResult.Size = new System.Drawing.Size(75, 25);
             this.btnCopyResult.TabIndex = 8;
             this.btnCopyResult.Text = "    Copy";
             this.btnCopyResult.UseVisualStyleBackColor = true;
@@ -91,7 +91,7 @@ namespace ToolWorking.Views
             this.btnClearResult.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnClearResult.Location = new System.Drawing.Point(577, 0);
             this.btnClearResult.Name = "btnClearResult";
-            this.btnClearResult.Size = new System.Drawing.Size(75, 27);
+            this.btnClearResult.Size = new System.Drawing.Size(75, 25);
             this.btnClearResult.TabIndex = 9;
             this.btnClearResult.Text = "    Clear";
             this.btnClearResult.UseVisualStyleBackColor = true;
@@ -101,18 +101,18 @@ namespace ToolWorking.Views
             this.panelCenter.Controls.Add(this.panelCenterBot);
             this.panelCenter.Controls.Add(this.panelCenterTop);
             this.panelCenter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCenter.Location = new System.Drawing.Point(0, 68);
+            this.panelCenter.Location = new System.Drawing.Point(0, 63);
             this.panelCenter.Name = "panelCenter";
-            this.panelCenter.Size = new System.Drawing.Size(660, 345);
+            this.panelCenter.Size = new System.Drawing.Size(660, 318);
             this.panelCenter.TabIndex = 14;
             // 
             // panelCenterBot
             // 
             this.panelCenterBot.Controls.Add(this.txtResult);
             this.panelCenterBot.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelCenterBot.Location = new System.Drawing.Point(0, 184);
+            this.panelCenterBot.Location = new System.Drawing.Point(0, 169);
             this.panelCenterBot.Name = "panelCenterBot";
-            this.panelCenterBot.Size = new System.Drawing.Size(660, 161);
+            this.panelCenterBot.Size = new System.Drawing.Size(660, 149);
             this.panelCenterBot.TabIndex = 24;
             // 
             // txtResult
@@ -122,7 +122,7 @@ namespace ToolWorking.Views
             this.txtResult.Location = new System.Drawing.Point(0, 0);
             this.txtResult.Name = "txtResult";
             this.txtResult.ReadOnly = true;
-            this.txtResult.Size = new System.Drawing.Size(660, 161);
+            this.txtResult.Size = new System.Drawing.Size(660, 149);
             this.txtResult.TabIndex = 22;
             this.txtResult.Text = "";
             // 
@@ -133,7 +133,7 @@ namespace ToolWorking.Views
             this.panelCenterTop.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelCenterTop.Location = new System.Drawing.Point(0, 0);
             this.panelCenterTop.Name = "panelCenterTop";
-            this.panelCenterTop.Size = new System.Drawing.Size(660, 178);
+            this.panelCenterTop.Size = new System.Drawing.Size(660, 164);
             this.panelCenterTop.TabIndex = 23;
             // 
             // groupInputValue
@@ -143,161 +143,10 @@ namespace ToolWorking.Views
             this.groupInputValue.Font = new System.Drawing.Font("Century Gothic", 9.75F);
             this.groupInputValue.Location = new System.Drawing.Point(246, 0);
             this.groupInputValue.Name = "groupInputValue";
-            this.groupInputValue.Size = new System.Drawing.Size(414, 178);
+            this.groupInputValue.Size = new System.Drawing.Size(414, 164);
             this.groupInputValue.TabIndex = 24;
             this.groupInputValue.TabStop = false;
             this.groupInputValue.Text = "Input Value";
-            // 
-            // groupInputKey
-            // 
-            this.groupInputKey.Controls.Add(this.txtInputKey);
-            this.groupInputKey.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupInputKey.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.groupInputKey.Location = new System.Drawing.Point(0, 0);
-            this.groupInputKey.Name = "groupInputKey";
-            this.groupInputKey.Size = new System.Drawing.Size(240, 178);
-            this.groupInputKey.TabIndex = 23;
-            this.groupInputKey.TabStop = false;
-            this.groupInputKey.Text = "Input Keys";
-            // 
-            // txtInputKey
-            // 
-            this.txtInputKey.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtInputKey.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtInputKey.Location = new System.Drawing.Point(3, 19);
-            this.txtInputKey.Name = "txtInputKey";
-            this.txtInputKey.Size = new System.Drawing.Size(234, 156);
-            this.txtInputKey.TabIndex = 22;
-            this.txtInputKey.Text = "";
-            this.txtInputKey.TextChanged += new System.EventHandler(this.txtInputKey_TextChanged);
-            // 
-            // panelBottom
-            // 
-            this.panelBottom.Controls.Add(this.btnCount);
-            this.panelBottom.Controls.Add(this.btnCopyResult);
-            this.panelBottom.Controls.Add(this.btnClearResult);
-            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBottom.Location = new System.Drawing.Point(0, 413);
-            this.panelBottom.Name = "panelBottom";
-            this.panelBottom.Size = new System.Drawing.Size(660, 32);
-            this.panelBottom.TabIndex = 15;
-            // 
-            // btnCount
-            // 
-            this.btnCount.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.btnCount.Image = ((System.Drawing.Image)(resources.GetObject("btnCount.Image")));
-            this.btnCount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCount.Location = new System.Drawing.Point(419, 0);
-            this.btnCount.Name = "btnCount";
-            this.btnCount.Size = new System.Drawing.Size(75, 27);
-            this.btnCount.TabIndex = 21;
-            this.btnCount.Text = "    Count";
-            this.btnCount.UseVisualStyleBackColor = true;
-            this.btnCount.Visible = false;
-            // 
-            // panelTop
-            // 
-            this.panelTop.Controls.Add(this.txtIndent);
-            this.panelTop.Controls.Add(this.label1);
-            this.panelTop.Controls.Add(this.panelInput);
-            this.panelTop.Controls.Add(this.rbOutput);
-            this.panelTop.Controls.Add(this.rbInput);
-            this.panelTop.Controls.Add(this.label4);
-            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panelTop.Location = new System.Drawing.Point(0, 0);
-            this.panelTop.Name = "panelTop";
-            this.panelTop.Size = new System.Drawing.Size(660, 68);
-            this.panelTop.TabIndex = 12;
-            // 
-            // panelInput
-            // 
-            this.panelInput.Controls.Add(this.rbModeTree);
-            this.panelInput.Controls.Add(this.rbModePath);
-            this.panelInput.Location = new System.Drawing.Point(213, 0);
-            this.panelInput.Name = "panelInput";
-            this.panelInput.Size = new System.Drawing.Size(191, 29);
-            this.panelInput.TabIndex = 16;
-            // 
-            // rbModeTree
-            // 
-            this.rbModeTree.AutoSize = true;
-            this.rbModeTree.Checked = true;
-            this.rbModeTree.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.rbModeTree.Location = new System.Drawing.Point(0, 8);
-            this.rbModeTree.Name = "rbModeTree";
-            this.rbModeTree.Size = new System.Drawing.Size(53, 21);
-            this.rbModeTree.TabIndex = 14;
-            this.rbModeTree.TabStop = true;
-            this.rbModeTree.Text = "Keys";
-            this.rbModeTree.UseVisualStyleBackColor = true;
-            this.rbModeTree.CheckedChanged += new System.EventHandler(this.rbModeTree_CheckedChanged);
-            // 
-            // rbModePath
-            // 
-            this.rbModePath.AutoSize = true;
-            this.rbModePath.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.rbModePath.Location = new System.Drawing.Point(55, 8);
-            this.rbModePath.Name = "rbModePath";
-            this.rbModePath.Size = new System.Drawing.Size(107, 21);
-            this.rbModePath.TabIndex = 15;
-            this.rbModePath.Text = "JSON Object";
-            this.rbModePath.UseVisualStyleBackColor = true;
-            this.rbModePath.CheckedChanged += new System.EventHandler(this.rbModePath_CheckedChanged);
-            // 
-            // rbOutput
-            // 
-            this.rbOutput.AutoSize = true;
-            this.rbOutput.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.rbOutput.Location = new System.Drawing.Point(140, 8);
-            this.rbOutput.Name = "rbOutput";
-            this.rbOutput.Size = new System.Drawing.Size(72, 21);
-            this.rbOutput.TabIndex = 2;
-            this.rbOutput.Text = "Output";
-            this.rbOutput.UseVisualStyleBackColor = true;
-            this.rbOutput.CheckedChanged += new System.EventHandler(this.rbOutput_CheckedChanged);
-            // 
-            // rbInput
-            // 
-            this.rbInput.AutoSize = true;
-            this.rbInput.Checked = true;
-            this.rbInput.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.rbInput.Location = new System.Drawing.Point(80, 8);
-            this.rbInput.Name = "rbInput";
-            this.rbInput.Size = new System.Drawing.Size(59, 21);
-            this.rbInput.TabIndex = 1;
-            this.rbInput.TabStop = true;
-            this.rbInput.Text = "Input";
-            this.rbInput.UseVisualStyleBackColor = true;
-            this.rbInput.CheckedChanged += new System.EventHandler(this.rbInput_CheckedChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.label4.Location = new System.Drawing.Point(6, 11);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(45, 17);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Mode";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
-            this.label1.Location = new System.Drawing.Point(6, 42);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 17);
-            this.label1.TabIndex = 17;
-            this.label1.Text = "Indent";
-            // 
-            // txtIndent
-            // 
-            this.txtIndent.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.txtIndent.Location = new System.Drawing.Point(80, 39);
-            this.txtIndent.Name = "txtIndent";
-            this.txtIndent.Size = new System.Drawing.Size(132, 24);
-            this.txtIndent.TabIndex = 18;
-            this.txtIndent.TextChanged += new System.EventHandler(this.txtIndent_TextChanged);
             // 
             // gridInputValue
             // 
@@ -336,7 +185,7 @@ namespace ToolWorking.Views
             this.gridInputValue.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.gridInputValue.RowHeadersVisible = false;
             this.gridInputValue.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.gridInputValue.Size = new System.Drawing.Size(408, 156);
+            this.gridInputValue.Size = new System.Drawing.Size(408, 142);
             this.gridInputValue.TabIndex = 12;
             // 
             // name
@@ -364,11 +213,162 @@ namespace ToolWorking.Views
             this.Range.Name = "Range";
             this.Range.Visible = false;
             // 
+            // groupInputKey
+            // 
+            this.groupInputKey.Controls.Add(this.txtInputKey);
+            this.groupInputKey.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupInputKey.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.groupInputKey.Location = new System.Drawing.Point(0, 0);
+            this.groupInputKey.Name = "groupInputKey";
+            this.groupInputKey.Size = new System.Drawing.Size(240, 164);
+            this.groupInputKey.TabIndex = 23;
+            this.groupInputKey.TabStop = false;
+            this.groupInputKey.Text = "Input Keys";
+            // 
+            // txtInputKey
+            // 
+            this.txtInputKey.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtInputKey.Font = new System.Drawing.Font("MS Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtInputKey.Location = new System.Drawing.Point(3, 19);
+            this.txtInputKey.Name = "txtInputKey";
+            this.txtInputKey.Size = new System.Drawing.Size(234, 142);
+            this.txtInputKey.TabIndex = 22;
+            this.txtInputKey.Text = "";
+            this.txtInputKey.TextChanged += new System.EventHandler(this.txtInputKey_TextChanged);
+            // 
+            // panelBottom
+            // 
+            this.panelBottom.Controls.Add(this.btnCount);
+            this.panelBottom.Controls.Add(this.btnCopyResult);
+            this.panelBottom.Controls.Add(this.btnClearResult);
+            this.panelBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBottom.Location = new System.Drawing.Point(0, 381);
+            this.panelBottom.Name = "panelBottom";
+            this.panelBottom.Size = new System.Drawing.Size(660, 30);
+            this.panelBottom.TabIndex = 15;
+            // 
+            // btnCount
+            // 
+            this.btnCount.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.btnCount.Image = ((System.Drawing.Image)(resources.GetObject("btnCount.Image")));
+            this.btnCount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCount.Location = new System.Drawing.Point(419, 0);
+            this.btnCount.Name = "btnCount";
+            this.btnCount.Size = new System.Drawing.Size(75, 25);
+            this.btnCount.TabIndex = 21;
+            this.btnCount.Text = "    Count";
+            this.btnCount.UseVisualStyleBackColor = true;
+            this.btnCount.Visible = false;
+            // 
+            // panelTop
+            // 
+            this.panelTop.Controls.Add(this.txtIndent);
+            this.panelTop.Controls.Add(this.label1);
+            this.panelTop.Controls.Add(this.panelInput);
+            this.panelTop.Controls.Add(this.rbOutput);
+            this.panelTop.Controls.Add(this.rbInput);
+            this.panelTop.Controls.Add(this.label4);
+            this.panelTop.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelTop.Location = new System.Drawing.Point(0, 0);
+            this.panelTop.Name = "panelTop";
+            this.panelTop.Size = new System.Drawing.Size(660, 63);
+            this.panelTop.TabIndex = 12;
+            // 
+            // txtIndent
+            // 
+            this.txtIndent.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.txtIndent.Location = new System.Drawing.Point(80, 36);
+            this.txtIndent.Name = "txtIndent";
+            this.txtIndent.Size = new System.Drawing.Size(132, 24);
+            this.txtIndent.TabIndex = 18;
+            this.txtIndent.TextChanged += new System.EventHandler(this.txtIndent_TextChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.label1.Location = new System.Drawing.Point(6, 39);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(49, 17);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Indent";
+            // 
+            // panelInput
+            // 
+            this.panelInput.Controls.Add(this.rbModeKeys);
+            this.panelInput.Controls.Add(this.rbModeJson);
+            this.panelInput.Location = new System.Drawing.Point(213, 0);
+            this.panelInput.Name = "panelInput";
+            this.panelInput.Size = new System.Drawing.Size(191, 27);
+            this.panelInput.TabIndex = 16;
+            // 
+            // rbModeKeys
+            // 
+            this.rbModeKeys.AutoSize = true;
+            this.rbModeKeys.Checked = true;
+            this.rbModeKeys.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.rbModeKeys.Location = new System.Drawing.Point(0, 7);
+            this.rbModeKeys.Name = "rbModeKeys";
+            this.rbModeKeys.Size = new System.Drawing.Size(53, 21);
+            this.rbModeKeys.TabIndex = 14;
+            this.rbModeKeys.TabStop = true;
+            this.rbModeKeys.Text = "Keys";
+            this.rbModeKeys.UseVisualStyleBackColor = true;
+            this.rbModeKeys.CheckedChanged += new System.EventHandler(this.rbModeTree_CheckedChanged);
+            // 
+            // rbModeJson
+            // 
+            this.rbModeJson.AutoSize = true;
+            this.rbModeJson.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.rbModeJson.Location = new System.Drawing.Point(55, 7);
+            this.rbModeJson.Name = "rbModeJson";
+            this.rbModeJson.Size = new System.Drawing.Size(107, 21);
+            this.rbModeJson.TabIndex = 15;
+            this.rbModeJson.Text = "JSON Object";
+            this.rbModeJson.UseVisualStyleBackColor = true;
+            this.rbModeJson.CheckedChanged += new System.EventHandler(this.rbModePath_CheckedChanged);
+            // 
+            // rbOutput
+            // 
+            this.rbOutput.AutoSize = true;
+            this.rbOutput.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.rbOutput.Location = new System.Drawing.Point(140, 7);
+            this.rbOutput.Name = "rbOutput";
+            this.rbOutput.Size = new System.Drawing.Size(72, 21);
+            this.rbOutput.TabIndex = 2;
+            this.rbOutput.Text = "Output";
+            this.rbOutput.UseVisualStyleBackColor = true;
+            this.rbOutput.CheckedChanged += new System.EventHandler(this.rbOutput_CheckedChanged);
+            // 
+            // rbInput
+            // 
+            this.rbInput.AutoSize = true;
+            this.rbInput.Checked = true;
+            this.rbInput.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.rbInput.Location = new System.Drawing.Point(80, 7);
+            this.rbInput.Name = "rbInput";
+            this.rbInput.Size = new System.Drawing.Size(59, 21);
+            this.rbInput.TabIndex = 1;
+            this.rbInput.TabStop = true;
+            this.rbInput.Text = "Input";
+            this.rbInput.UseVisualStyleBackColor = true;
+            this.rbInput.CheckedChanged += new System.EventHandler(this.rbInput_CheckedChanged);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 9.75F);
+            this.label4.Location = new System.Drawing.Point(6, 10);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(45, 17);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Mode";
+            // 
             // Json
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(660, 445);
+            this.ClientSize = new System.Drawing.Size(660, 411);
             this.Controls.Add(this.panelCenter);
             this.Controls.Add(this.panelBottom);
             this.Controls.Add(this.panelTop);
@@ -379,13 +379,13 @@ namespace ToolWorking.Views
             this.panelCenterBot.ResumeLayout(false);
             this.panelCenterTop.ResumeLayout(false);
             this.groupInputValue.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gridInputValue)).EndInit();
             this.groupInputKey.ResumeLayout(false);
             this.panelBottom.ResumeLayout(false);
             this.panelTop.ResumeLayout(false);
             this.panelTop.PerformLayout();
             this.panelInput.ResumeLayout(false);
             this.panelInput.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gridInputValue)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -399,8 +399,8 @@ namespace ToolWorking.Views
         private System.Windows.Forms.Panel panelBottom;
         private System.Windows.Forms.Button btnCount;
         private System.Windows.Forms.Panel panelTop;
-        private System.Windows.Forms.RadioButton rbModePath;
-        private System.Windows.Forms.RadioButton rbModeTree;
+        private System.Windows.Forms.RadioButton rbModeJson;
+        private System.Windows.Forms.RadioButton rbModeKeys;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panelCenterTop;
         private System.Windows.Forms.Panel panelCenterBot;

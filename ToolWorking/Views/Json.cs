@@ -13,9 +13,9 @@ namespace ToolWorking.Views
     {
         bool isInputKey;
 
-        string indentCharacter = CONST.STRING_TAB;
+        string indentCharacter = string.Empty;
 
-        List<string> lstInputKey;
+        List<ColumnModel> lstInputKey;
         List<string> lstInputValue;
 
         public Json()
@@ -48,60 +48,70 @@ namespace ToolWorking.Views
 
         private void txtIndent_TextChanged(object sender, EventArgs e)
         {
-            indentCharacter = string.IsNullOrEmpty(txtIndent.Text) ? CONST.STRING_TAB : txtIndent.Text.Trim();
+            indentCharacter = string.IsNullOrEmpty(txtIndent.Text) ? string.Empty : txtIndent.Text.Trim();
         }
 
         private void txtInputKey_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(txtInputKey.Text)) return;
 
-            string[] arrKeys = txtInputKey.Text.Split(CONST.STRING_SEPARATORS, StringSplitOptions.None);
+            string rawInput = StripInputChars(txtInputKey.Text);
+            string[] arrKeys = rawInput.Split(CONST.STRING_SEPARATORS, StringSplitOptions.None);
 
+            lstInputKey = new List<ColumnModel>();
             if (arrKeys.Length > 0)
             {
                 foreach (var _key in arrKeys)
                 {
-                    string key = _key.Trim().Replace("  ", string.Empty);
-                    if (string.IsNullOrEmpty(key) ||
-                        (!isInputKey && (key.Equals("[") || key.Equals("{") || key.Equals("}")))) continue;
+                    if (rbModeKeys.Checked)
+                    {
+                        string line = string.IsNullOrEmpty(indentCharacter) ? _key.Trim() : _key.Replace(indentCharacter, string.Empty).Trim();
 
-                    if (isInputKey)
-                    {
-                        lstInputKey.Add(key.Replace(indentCharacter, string.Empty));
+                        if (string.IsNullOrEmpty(line)) continue;
+
+                        string[] parts = line.Split(CONST.STRING_SEPARATORS_COLUMN, StringSplitOptions.RemoveEmptyEntries);
+                        string key = parts[0].Trim();
+                        string type = parts.Length > 1 ? parts[1].Trim() : string.Empty;
+
+                        if (string.IsNullOrEmpty(key)) continue;
+
+                        int range = 1;
+                        string baseType = type;
+                        if (type.ToUpper().IndexOf(CONST.STRING_ARRAY, StringComparison.OrdinalIgnoreCase) >= 0 && type.Contains(":"))
+                        {
+                            string rangeText = type.Split(':')[1].Trim();
+                            if (int.TryParse(rangeText, out int r) && r > 0) range = r;
+                            baseType = "Array";
+                        }
+
+                        lstInputKey.Add(new ColumnModel(lstInputKey.Count + 1, key, baseType, string.Empty, range));
                     }
-                    else
+                    else if (rbModeJson.Checked)
                     {
-                        key = key.Replace("\"", "").Replace(",", string.Empty);
-                        key = (key.Contains("[") || key.Contains("{")) ? key : key.Replace(":", string.Empty).Trim();
-                        lstInputKey.Add(key.Replace(indentCharacter, string.Empty));
+
                     }
+
+                    //    string key = _key.Trim().Replace("  ", string.Empty);
+                    //if (string.IsNullOrEmpty(key) ||
+                    //    (!isInputKey && (key.Equals("[") || key.Equals("{") || key.Equals("}")))) continue;
+
+                    //if (isInputKey)
+                    //{
+                    //    lstInputKey.Add(key.Replace(indentCharacter, string.Empty));
+                    //}
+                    //else
+                    //{
+                    //    key = key.Replace("\"", "").Replace(",", string.Empty);
+                    //    key = (key.Contains("[") || key.Contains("{")) ? key : key.Replace(":", string.Empty).Trim();
+                    //    lstInputKey.Add(key.Replace(indentCharacter, string.Empty));
+                    //}
                 }
             }
 
 
-            gridInputValue.DataSource = new List<JsonModel>();
+            gridInputValue.DataSource = new List<ColumnModel>();
             if (lstInputKey.Count > 0)
-            {
-                List<JsonModel> lstValue = new List<JsonModel>();
-                for (int i = 0; i < lstInputKey.Count; i++)
-                {
-                    string key = lstInputKey[i];
-
-                    if (key.Contains(":"))
-                    {
-                        string[] arrKey = key.Split(':');
-
-                        string numberText = arrKey[1].Replace("[", string.Empty);
-                        int number = int.TryParse(numberText, out int result) ? result : 1;
-
-                        lstValue.Add(new JsonModel(arrKey[0].Trim(), string.Empty, number));
-                    }
-                    else
-                    {
-                        lstValue.Add(new JsonModel(key, string.Empty));
-                    }
-                }
-            }
+                gridInputValue.DataSource = lstInputKey;
         }
 
         private void txtInputValue_TextChanged(object sender, EventArgs e)
@@ -111,91 +121,83 @@ namespace ToolWorking.Views
         #endregion
 
         #region Function
-
-        private enum NodeType { Leaf, Object, Array }
-
-        private class ParseNode
+        private List<ColumnModel> ParseKeysModeLines(string[] lines)
         {
-            public string Name { get; set; }
-            public NodeType Type { get; set; }
-            public int Count { get; set; } = 1;
-            public List<ParseNode> Children { get; set; } = new List<ParseNode>();
-        }
+            var result = new List<ColumnModel>();
+            int no = 1;
+            int i = 0;
 
-        private int ParseLines(string[] lines, int start, List<ParseNode> nodes)
-        {
-            int i = start;
             while (i < lines.Length)
             {
                 string line = lines[i].Trim().Replace(indentCharacter, string.Empty).Trim();
-
                 if (string.IsNullOrEmpty(line)) { i++; continue; }
 
-                if (line == "}" || line == "]") return i + 1;
+                string[] parts = line.Split(CONST.STRING_SEPARATORS_COLUMN, StringSplitOptions.None);
+                string key = parts[0].Trim();
+                string type = parts.Length > 1 ? parts[1].Trim() : string.Empty;
 
-                if (line.Contains(":"))
+                if (string.IsNullOrEmpty(key)) { i++; continue; }
+
+                if (type.StartsWith("Array", StringComparison.OrdinalIgnoreCase))
                 {
-                    int colonIdx = line.IndexOf(':');
-                    string key = line.Substring(0, colonIdx).Trim();
-                    string spec = line.Substring(colonIdx + 1).Trim();
+                    int range = 1;
+                    if (type.Contains(":"))
+                    {
+                        string rangeText = type.Split(':')[1].Trim();
+                        if (int.TryParse(rangeText, out int r) && r > 0) range = r;
+                    }
 
-                    if (spec.Contains("["))
+                    // Collect children until next Array/Object or end of input
+                    var children = new List<string[]>();
+                    i++;
+                    while (i < lines.Length)
                     {
-                        string countText = spec.Replace("[", string.Empty).Trim();
-                        int count = int.TryParse(countText, out int c) && c > 0 ? c : 1;
-                        var arrNode = new ParseNode { Name = key, Type = NodeType.Array, Count = count };
-                        i = ParseLines(lines, i + 1, arrNode.Children);
-                        nodes.Add(arrNode);
-                        continue;
-                    }
-                    else if (spec.Contains("{"))
-                    {
-                        var objNode = new ParseNode { Name = key, Type = NodeType.Object };
-                        i = ParseLines(lines, i + 1, objNode.Children);
-                        nodes.Add(objNode);
-                        continue;
-                    }
-                    else
-                    {
-                        int count = int.TryParse(spec, out int c) ? c : 0;
-                        nodes.Add(new ParseNode { Name = key, Type = NodeType.Leaf, Count = count });
+                        string childLine = lines[i].Trim().Replace(indentCharacter, string.Empty).Trim();
+                        if (string.IsNullOrEmpty(childLine)) { i++; continue; }
+
+                        string[] childParts = childLine.Split(CONST.STRING_SEPARATORS_COLUMN, StringSplitOptions.None);
+                        string childKey = childParts[0].Trim();
+                        string childType = childParts.Length > 1 ? childParts[1].Trim() : string.Empty;
+
+                        if (childType.StartsWith("Array", StringComparison.OrdinalIgnoreCase) ||
+                            childType.StartsWith("Object", StringComparison.OrdinalIgnoreCase))
+                            break;
+
+                        if (!string.IsNullOrEmpty(childKey))
+                            children.Add(new[] { childKey, childType });
                         i++;
+                    }
+
+                    // Expand range × children into flat rows
+                    for (int idx = 0; idx < range; idx++)
+                    {
+                        foreach (var child in children)
+                            result.Add(new ColumnModel(no++, key + "[" + idx + "]." + child[0], child[1], string.Empty, 1));
                     }
                 }
                 else
                 {
-                    nodes.Add(new ParseNode { Name = line, Type = NodeType.Leaf });
+                    result.Add(new ColumnModel(no++, key, type, string.Empty, 1));
                     i++;
                 }
             }
-            return i;
+
+            return result;
         }
 
-        private void FlattenNodes(List<ParseNode> nodes, string prefix, List<JsonModel> result)
+        private string StripInputChars(string input)
         {
-            foreach (var node in nodes)
+            if (string.IsNullOrEmpty(txtIndent.Text)) return input;
+
+            string[] stripItems = txtIndent.Text.Split(',');
+            foreach (var item in stripItems)
             {
-                string fullKey = string.IsNullOrEmpty(prefix) ? node.Name : prefix + node.Name;
-
-                switch (node.Type)
-                {
-                    case NodeType.Leaf:
-                        result.Add(new JsonModel(fullKey, string.Empty, node.Count));
-                        break;
-                    case NodeType.Object:
-                        if (node.Children.Count > 0)
-                            FlattenNodes(node.Children, fullKey + ".", result);
-                        else
-                            result.Add(new JsonModel(fullKey, string.Empty));
-                        break;
-                    case NodeType.Array:
-                        for (int i = 0; i < node.Count; i++)
-                            FlattenNodes(node.Children, fullKey + "[" + i + "].", result);
-                        break;
-                }
+                string stripChar = item.Trim();
+                if (!string.IsNullOrEmpty(stripChar))
+                    input = input.Replace(stripChar, string.Empty);
             }
+            return input;
         }
-
         #endregion
     }
 }

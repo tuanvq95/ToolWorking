@@ -44,6 +44,8 @@ namespace ToolWorking.Utils
         public const string STRING_DATA_TYPE = "データ型";
         public const string STRING_NUMBER_OF_DIGITS = "桁数";
         public const string STRING_PRECISION = "精度";
+
+        public const string STRING_ARRAY = "ARRAY";
         #endregion
 
         #region String SQL 
